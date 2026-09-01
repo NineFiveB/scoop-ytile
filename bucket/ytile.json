@@ -1,0 +1,57 @@
+{
+    "version": "0.1.10",
+    "description": "Tiling window manager for Windows - tiling only, no bar, no widgets. C# / .NET NativeAOT.",
+    "homepage": "https://github.com/AegiosOT/YTile",
+    "license": "MIT",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/AegiosOT/YTile/releases/download/v0.1.10/ytile-0.1.10-win-x64.zip",
+            "hash": "0a039d5fca3bcc6df9aeea13dd5a64727477f88da7cef516623a4ac0997c5c8e"
+        }
+    },
+    "bin": [
+        "ytile.exe",
+        "ytiled.exe",
+        "ykeys.exe"
+    ],
+    "pre_uninstall": [
+        "# ytiled and ykeys lock their own binaries, so scoop cannot remove or",
+        "# replace them while they run - and an update is an uninstall first.",
+        "if (Get-Process ytiled -ErrorAction SilentlyContinue) {",
+        "    & \"$dir\\ytile.exe\" stop *> $null",
+        "    Start-Sleep -Seconds 2",
+        "}",
+        "Get-Process ytiled, ykeys -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue"
+    ],
+    "notes": [
+        "Start it with:  ytile start        (brings up the bundled ykeys hotkey daemon too)",
+        "Run at login:   ytile autostart on",
+        "",
+        "Config lives outside the scoop directory, so upgrades never touch it:",
+        "  ~/.config/ytile/ytile.json   layout, gaps, window rules",
+        "  ~/.config/ykeys/ykeys.json   hotkeys",
+        "",
+        "Elevated windows (Task Manager and other auto-elevating system tools) can only",
+        "be tiled by an elevated daemon. 'ytile start --elevated' works and prompts once",
+        "per session. 'ytile autostart on --elevated' will be REFUSED for a scoop install:",
+        "it registers a logon task at run level HIGHEST, which must point at a directory",
+        "only administrators can write, and scoop installs under your own profile. For",
+        "silent elevated autostart, install for all users instead:",
+        "  $env:YTILE_ALLUSERS = 1; $env:YTILE_AUTOSTART = 1",
+        "  irm https://raw.githubusercontent.com/AegiosOT/YTile/main/scripts/install.ps1 | iex"
+    ],
+    "checkver": {
+        "github": "https://github.com/AegiosOT/YTile"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/AegiosOT/YTile/releases/download/v$version/ytile-$version-win-x64.zip"
+            }
+        },
+        "hash": {
+            "url": "https://github.com/AegiosOT/YTile/releases/download/v$version/SHA256SUMS.txt",
+            "regex": "(?<sha256>[a-fA-F0-9]{64})\\s+$basename"
+        }
+    }
+}
