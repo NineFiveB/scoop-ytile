@@ -1,10 +1,10 @@
 # scoop-ytile
 
-A [Scoop](https://scoop.sh) bucket for [YTile](https://github.com/AegiosOT/YTile) —
+A [Scoop](https://scoop.sh) bucket for [YTile](https://github.com/NineFiveB/YTile) —
 a tiling window manager for Windows. Tiling only, no bar, no widgets.
 
 ```powershell
-scoop bucket add ytile https://github.com/AegiosOT/scoop-ytile
+scoop bucket add ytile https://github.com/NineFiveB/scoop-ytile
 scoop install ytile
 ```
 
@@ -28,7 +28,7 @@ updates and uninstalls untouched:
 | `~/.config/ytile/ytile.json` | layout, gaps, window rules |
 | `~/.config/ykeys/ykeys.json` | hotkeys |
 
-Both are documented in the [YTile README](https://github.com/AegiosOT/YTile#configuration).
+Both are documented in the [YTile README](https://github.com/NineFiveB/YTile#configuration).
 
 ## Elevated windows
 
@@ -48,12 +48,12 @@ profile. For silent elevated autostart, use the all-users installer instead:
 # from an administrator PowerShell
 $env:YTILE_ALLUSERS  = 1
 $env:YTILE_AUTOSTART = 1
-irm https://raw.githubusercontent.com/AegiosOT/YTile/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/NineFiveB/YTile/main/scripts/install.ps1 | iex
 ```
 
 ## Other install methods
 
-The [one-liner installer](https://github.com/AegiosOT/YTile#install) is the
+The [one-liner installer](https://github.com/NineFiveB/YTile#install) is the
 primary channel and supports both per-user and all-users installs. A winget
 package is in review.
 
